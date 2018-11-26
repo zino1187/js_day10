@@ -84,8 +84,9 @@ function getList(){
 	for(var a=members.length-1;a>=0;a--){
 		sum=sum+parseInt(members[a][2]);
 
-		str=str+"<tr onMouseOver='rollOver(this,true)' onMouseOut='rollOver(this,false)'>";
+		str=str+"<tr onMouseOver='rollOver(this,true)' onMouseOut='rollOver(this,false)' onClick='getDetail("+a+")'>";
 		str=str+"<td>"+(a+1)+"</td>";
+
 		for(var i=0;i<members[a].length;i++){
 			str=str+"<td>"+members[a][i]+"</td>";
 		}
@@ -108,7 +109,15 @@ function rollOver(obj,flag){
 		obj.style.background="none";
 	}
 }
-
+//
+function getDetail(index){
+	//alert("당신 선택한 층은 "+index);
+	var arr=members[index]; //지정한 층에 있는 배열 끄집어내기
+	
+	t_name.value=arr[0];
+	t_loc.value=arr[1];
+	t_money.value=arr[2];
+}
 addEventListener("load", function(){
 	init();
 });
