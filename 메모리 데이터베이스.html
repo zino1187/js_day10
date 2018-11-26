@@ -40,6 +40,9 @@ input{
 </style>
 <script>
 var name,t_name,loc,t_loc,money,t_money,category,keyword;
+
+var list_area;
+
 var members=[]; //전체 회원들을 모아놓을 2차원 배열이 될 녀석!!
 
 function init(){
@@ -51,7 +54,9 @@ function init(){
 	t_money=document.getElementById("t_money");
 	category=document.getElementById("category");
 	keyword=document.getElementById("keyword");
+	list_area=document.getElementById("list_area");
 
+	getList();
 }
 //입력한 기부자의 정보를 담아둔다...
 function regist(){
@@ -64,6 +69,22 @@ function regist(){
 	members.push(arr); //1사람 채워넣기!!
 	console.log("현재까지 누적된 회원수는 ", members.length);
 }
+
+//목록 출력 : 현재까지 2차원 배열에 채워진 모든~데이터를
+//테이블로 출력해보자!!
+function getList(){
+	var str="";
+	str=str+"<table width='100%' border='1px'>";
+	str=str+"<tr>";
+	str=str+"<td>이름</td>";
+	str=str+"<td>지역</td>";
+	str=str+"<td>낸돈</td>";
+	str=str+"</tr>";
+	str=str+"</table>";
+
+	list_area.innerHTML=str;
+}
+
 addEventListener("load", function(){
 	init();
 });
