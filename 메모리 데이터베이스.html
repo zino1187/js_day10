@@ -39,14 +39,14 @@ input{
 }
 </style>
 <script>
-var name,t_name,loc,t_loc,money,t_money,category,keyword;
+var m_name,t_name,loc,t_loc,money,t_money,category,keyword;
 
 var list_area;
 
 var members=[]; //전체 회원들을 모아놓을 2차원 배열이 될 녀석!!
 
 function init(){
-	name=document.getElementById("name");
+	m_name=document.getElementById("m_name");
 	t_name=document.getElementById("t_name");
 	loc=document.getElementById("loc");
 	t_loc=document.getElementById("t_loc");
@@ -55,19 +55,18 @@ function init(){
 	category=document.getElementById("category");
 	keyword=document.getElementById("keyword");
 	list_area=document.getElementById("list_area");
-
-	getList();
 }
 //입력한 기부자의 정보를 담아둔다...
 function regist(){
 	//일차원 배열에 1사람에 대한 정보를 담아두자!!
 	var arr=new Array();//이 배열은 곧 2차원배열에 담겨질 예정..
-	arr[0]=name.value;
+	arr[0]=m_name.value;
 	arr[1]=loc.value;
 	arr[2]=money.value;	
 	
 	members.push(arr); //1사람 채워넣기!!
 	console.log("현재까지 누적된 회원수는 ", members.length);
+	getList();
 }
 
 //목록 출력 : 현재까지 2차원 배열에 채워진 모든~데이터를
@@ -76,10 +75,19 @@ function getList(){
 	var str="";
 	str=str+"<table width='100%' border='1px'>";
 	str=str+"<tr>";
+	str=str+"<td>No</td>";
 	str=str+"<td>이름</td>";
 	str=str+"<td>지역</td>";
 	str=str+"<td>낸돈</td>";
 	str=str+"</tr>";
+	
+	for(var a=0;a<members.length;a++){
+		str=str+"<tr>";
+		for(var i=0;i<members[a].length;i++){
+			str=str+"<td>"+members[a][i]+"</td>";
+		}
+		str=str+"</tr>";
+	}
 	str=str+"</table>";
 
 	list_area.innerHTML=str;
@@ -93,7 +101,7 @@ addEventListener("load", function(){
 <body>
 	<div class="wrapper">
 		<div class="input_area">
-			<input type="text" placeholder="이름" id="name"/>
+			<input type="text" placeholder="이름" id="m_name"/>
 			<input type="text" placeholder="지역" id="loc"/>
 			<input type="text" placeholder="낸돈" id="money"/>
 			<button onClick="regist()">등록</button>
