@@ -80,14 +80,21 @@ function getList(){
 	str=str+"<td>지역</td>";
 	str=str+"<td>낸돈</td>";
 	str=str+"</tr>";
-	
-	for(var a=0;a<members.length;a++){
+	var sum=0;
+
+	for(var a=members.length-1;a>=0;a--){
+		sum=sum+parseInt(members[a][2]);
+
 		str=str+"<tr>";
+		str=str+"<td>"+(a+1)+"</td>";
 		for(var i=0;i<members[a].length;i++){
 			str=str+"<td>"+members[a][i]+"</td>";
 		}
 		str=str+"</tr>";
 	}
+	str=str+"<tr>";
+	str=str+"<td colspan='4' align='right'>총"+members.length+"명, 합계:"+sum+"</td>";
+	str=str+"</tr>";
 	str=str+"</table>";
 
 	list_area.innerHTML=str;
