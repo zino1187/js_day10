@@ -5,8 +5,6 @@
 <title>숙제풀이</title>
 <style>
 .wrapper{
-	width:1000px;
-	height:700px;
 	margin:auto;
 }
 .up{
@@ -22,23 +20,49 @@
 </style>
 <script>
 var stage;
+var cols=20; //만들어질 셀의 갯수 안쪽for문과 연관..
+var rows=10; //만들어질 행의 갯수
+var size=50; //한 셀의 크기
+var bd=1;//두께
+var stageWidth=(size+(bd*2))*cols;
+var stageHeight=(size+(bd*2))*rows;
+var memoryArray=new Array();//텅빈 배열선언
+
 function init(){
 	stage=document.getElementById("stage");
+	stage.style.width=stageWidth+"px";
+	stage.style.height=stageHeight+"px";
+	stage.style.margin="auto";
+
+	
 	createCell();
 }
 //사각형을 생성한다..
 function createCell(){
-	for(var i=0;i<20;i++){
-		var div=document.createElement("div");
-		div.style.width=20+"px";
-		div.style.height=20+"px";
-		div.style.background="green";
-		//div 는 블락속성이므로, float을 left로 변경한다
-		div.style.float="left";
-		div.style.border="1px solid yellow";
-		stage.appendChild(div);
+	var n=0;
+	for(var a=0;a<rows;a++){
+		for(var i=0;i<cols;i++){
+			var div=document.createElement("div");
+			div.style.width=size+"px";
+			div.style.height=size+"px";
+			div.style.background="green";
+			//div 는 블락속성이므로, float을 left로 변경한다
+			div.style.float="left";
+			div.style.border=bd+"px solid yellow";
+			div.innerText=n+"("+a+","+i+")";
+			div.style.color="#fff";
+			div.id=n;
+			div.addEventListener("click", function(){
+				//alert(this.id);
+				//지금 선택한 div 자체를 배열에 보관해놓자..
+				//왜?? 그래야 추후 보관된 데이터를 대상으로 다시 색상을
+				//변경할 수 있게 하기 위해...(재생)
+				memoryArray.push(this);
+			});
+			n++;
+			stage.appendChild(div);
+		}
 	}
-
 }
 addEventListener("load", function(){
 	init();
