@@ -27,6 +27,7 @@ var bd=1;//두께
 var stageWidth=(size+(bd*2))*cols;
 var stageHeight=(size+(bd*2))*rows;
 var memoryArray=new Array();//텅빈 배열선언
+var count=0;
 
 function init(){
 	stage=document.getElementById("stage");
@@ -58,12 +59,33 @@ function createCell(){
 				//왜?? 그래야 추후 보관된 데이터를 대상으로 다시 색상을
 				//변경할 수 있게 하기 위해...(재생)
 				memoryArray.push(this);
+				//배경 색 변경 
+				this.style.background="yellow";
 			});
 			n++;
 			stage.appendChild(div);
 		}
 	}
 }
+//배경색만 초기화 한다..메모리엔 여전히 기록이 남아있다..
+function erase(){
+	for(var i=0;i<memoryArray.length;i++){
+		var div=memoryArray[i];
+		div.style.background="green";
+	}
+}
+//메모리 배열에 등록된, 그 div 들을 대상으로, 색상을 노란색으로 변경
+function play(){
+	//for문은 과정을 보여주기엔 너무 속도가 빠르다.. 결국 for문이 했던 역할은
+	//변수 하나를 1씩 증가시키는 역할이었으므로, 이 역할 for문에게 맡기지
+	//말고 훨씬 느린 실행방법으로 바꾸어 재미를 더한다..
+	
+	var div=memoryArray[count];
+	div.style.background="yellow";
+	count++;
+	setTimeout("play()",500);
+}
+
 addEventListener("load", function(){
 	init();
 });
@@ -72,8 +94,8 @@ addEventListener("load", function(){
 <body>
 	<div class="wrapper">
 		<div class="up">
-			<button>지우개</button>
-			<button>재생</button>
+			<button onClick="erase()">지우개</button>
+			<button onClick="play()">재생</button>
 		</div>
 		<div id="stage"></div>
 	</div>
